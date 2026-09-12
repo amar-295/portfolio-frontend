@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Charcoal background with slight rounding -->
+  <rect width="64" height="64" rx="10" fill="#1a1c1a"/>
+
+  <!-- Geometric A mark in white, scaled to sit inside safe margins -->
+  <!-- Left stroke -->
+  <polygon points="7,57 18,57 30,13 25,13" fill="#ffffff"/>
+  <!-- Right stroke -->
+  <polygon points="46,57 57,57 39,13 34,13" fill="#ffffff"/>
+  <!-- Crossbar -->
+  <rect x="18" y="36" width="28" height="7" fill="#ffffff"/>
+</svg>
