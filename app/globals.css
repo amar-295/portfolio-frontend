@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-geist), Arial, sans-serif;
+  --color-portfolio-bg: #f7f5ef;
+  --color-portfolio-ink: #191b19;
+  --color-portfolio-muted: #6d7169;
+  --color-portfolio-line: #dedacf;
+  --color-portfolio-surface: #fffefa;
+  --color-portfolio-accent: #256b5c;
+  --color-portfolio-warm: #b86d44;
+  --radius-portfolio: 8px;
+  --shadow-soft: 0 18px 60px rgb(25 27 25 / 0.08);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f5ef;
+  --foreground: #191b19;
+  --muted: #6d7169;
+  --line: #dedacf;
+  --surface: #fffefa;
+  --accent: #256b5c;
+  --warm: #b86d44;
+  --focus: #256b5c;
+  --header-height: 72px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 24px);
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgb(25 27 25 / 0.035) 1px, transparent 1px) 0 0 / 72px 72px,
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist), Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: rgb(37 107 92 / 0.18);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9c4b8;
+  border: 3px solid var(--background);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa397;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    background:
+      linear-gradient(90deg, rgb(25 27 25 / 0.028) 1px, transparent 1px) 0 0 / 48px 48px,
+      var(--background);
+  }
 }
