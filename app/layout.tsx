@@ -9,9 +9,9 @@ const geist = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amar-295.me"),
-  title: "Amarnath Sharma - Software Developer",
+  title: "Amarnath Sharma | Software Developer",
   description:
-    "Portfolio of Amarnath Sharma, a software developer building React interfaces, REST APIs, database-backed products, and AI-integrated tools.",
+    "Software developer building modern web applications, APIs, and database-backed products with React, Next.js, Node.js, and TypeScript.",
   alternates: {
     canonical: "/",
   },
