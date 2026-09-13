@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Button from "./Button";
 import HeroAnimation from "./HeroAnimation";
-import { about, person, skills } from "../content";
+import { person, skills } from "../content";
 
 export default function AboutSection() {
   return (

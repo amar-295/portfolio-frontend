@@ -17,7 +17,9 @@ export default function Navigation({
     if (typeof window !== "undefined" && window.location.hash) {
       const hashId = window.location.hash.slice(1);
       if (navigation.some((item) => item.href === `#${hashId}`)) {
-        setActive(hashId);
+        requestAnimationFrame(() => {
+          setActive(hashId);
+        });
       }
     }
 
