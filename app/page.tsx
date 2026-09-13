@@ -5,6 +5,9 @@ import Navigation from "./components/Navigation";
 import ProfileCard from "./components/ProfileCard";
 import SectionReveal from "./components/SectionReveal";
 import WorkSection from "./components/WorkSection";
+import FeedbackPrompt from "./components/FeedbackPrompt";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -35,7 +38,12 @@ export default function Home() {
         <SectionReveal>
           <ContactSection />
         </SectionReveal>
+
+        <Footer />
       </main>
+
+      <FeedbackPrompt />
+      <AnalyticsTracker />
     </div>
   );
 }

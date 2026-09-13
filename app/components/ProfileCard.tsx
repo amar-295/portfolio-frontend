@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
@@ -5,6 +7,7 @@ import avatar from "@/public/avatar.webp";
 import Button from "./Button";
 import { person, resumeHref, socials } from "../content";
 import Navigation from "./Navigation";
+import { trackEvent } from "../lib/analytics";
 
 const socialLinks = [
   {
@@ -69,6 +72,13 @@ export default function ProfileCard() {
               title={label}
               icon={<Icon aria-hidden="true" size={18} />}
               animateIcon={false}
+              onClick={() => {
+                if (label === "GitHub") {
+                  trackEvent("github_click");
+                } else if (label === "LinkedIn") {
+                  trackEvent("linkedin_click");
+                }
+              }}
             />
           ))}
         </div>
@@ -79,6 +89,7 @@ export default function ProfileCard() {
             variant="primary"
             size="default"
             icon={<ArrowUpRight aria-hidden="true" size={16} />}
+            onClick={() => trackEvent("resume_click")}
           >
             Resume
           </Button>

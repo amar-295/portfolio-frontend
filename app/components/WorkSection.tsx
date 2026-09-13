@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { FaGithub } from "react-icons/fa";
@@ -10,6 +10,7 @@ import researchSynthesizerImage from "@/public/projects/research-synthesizer.web
 import changelogHubImage from "@/public/projects/changeloghub.webp";
 import Button from "./Button";
 import { projects } from "../content";
+import { trackEvent } from "../lib/analytics";
 
 const projectImages: StaticImageData[] = [
   crmImage,
@@ -19,6 +20,10 @@ const projectImages: StaticImageData[] = [
 
 export default function WorkSection() {
   const [current, setCurrent] = useState(0);
+  const [isWorkInView, setIsWorkInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const viewedProjectsRef = useRef<Set<string>>(new Set());
+
   const reduceMotion = useReducedMotion();
   const project = projects[current];
 
@@ -32,8 +37,41 @@ export default function WorkSection() {
     setCurrent((index + projects.length) % projects.length);
   }
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsWorkInView(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isWorkInView) {
+      const activeProject = projects[current];
+      if (!viewedProjectsRef.current.has(activeProject.number)) {
+        viewedProjectsRef.current.add(activeProject.number);
+        trackEvent("project_view", {
+          metadata: {
+            projectId: activeProject.number,
+            projectTitle: activeProject.title,
+          },
+        });
+      }
+    }
+  }, [isWorkInView, current]);
+
   return (
     <section
+      ref={sectionRef}
       id="work"
       aria-labelledby="work-title"
       className="border-t border-portfolio-line py-20 md:py-24"
@@ -174,6 +212,14 @@ export default function WorkSection() {
                       variant="primary"
                       size="sm"
                       icon={<ArrowUpRight aria-hidden="true" size={15} />}
+                      onClick={() => {
+                        trackEvent("live_demo_click", {
+                          metadata: {
+                            projectId: project.number,
+                            projectTitle: project.title,
+                          },
+                        });
+                      }}
                     >
                       Live Demo
                     </Button>
@@ -186,6 +232,14 @@ export default function WorkSection() {
                     iconPosition="left"
                     animateIcon={false}
                     aria-label={`Open ${project.title} on GitHub`}
+                    onClick={() => {
+                      trackEvent("github_click", {
+                        metadata: {
+                          projectId: project.number,
+                          projectTitle: project.title,
+                        },
+                      });
+                    }}
                   >
                     GitHub
                   </Button>
