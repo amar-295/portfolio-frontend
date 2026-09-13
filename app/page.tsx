@@ -9,9 +9,25 @@ import FeedbackPrompt from "./components/FeedbackPrompt";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import Footer from "./components/Footer";
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Amarnath Sharma",
+  url: "https://amar-295.me",
+  jobTitle: "Software Developer",
+  sameAs: [
+    "https://github.com/amar-295",
+    "https://www.linkedin.com/in/amarnath-webdev",
+  ],
+};
+
 export default function Home() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1680px] flex-col md:flex-row">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <header className="sticky top-0 z-50 border-b border-portfolio-line bg-portfolio-bg/92 px-4 py-3 backdrop-blur md:hidden">
         <Navigation variant="mobile" />
       </header>
